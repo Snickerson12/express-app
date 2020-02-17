@@ -4,11 +4,11 @@ let app = express();
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response){
-    response.sendFile(__dirname + '/html/index.html');
+    response.render('index');
 });
 
 app.get('/contact', function(request, response){
-    response.sendFile(__dirname + '/html/contact.html');
+    response.render('contact');
 });
 
 app.get('/profile/:name', function(request, response){
