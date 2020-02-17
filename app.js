@@ -1,5 +1,9 @@
 let express = require('express');
+let bodyParser = require('body-parser');
 let app = express();
+
+// body parser middleware will pass post data and store in a variable
+let urlencodedParser = bodyParser.urlencoded({extended: false});
 
 app.set('view engine', 'ejs');
 
@@ -17,7 +21,13 @@ app.get('/', function(request, response){
 });
 
 app.get('/contact', function(request, response){
-    response.render('contact');
+    response.render('contact', {qs: request.query});
+});
+
+// post request grabbing data from form, passes form data using middleware, gives us access to request.body data
+// pass that body data to html page and render in the view
+app.post('/contact', urlencodedParser, function(request, response){
+    response.render('contact-success', {data: request.body});
 });
 
 app.get('/profile/:name', function(request, response){
